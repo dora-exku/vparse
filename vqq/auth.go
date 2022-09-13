@@ -37,13 +37,21 @@ func AuthRefresh(cks string) (tokenInfo TokenInfo, ncks string, err error) {
 		"_":        timeM,
 	}).R().Get("https://access.video.qq.com/user/auth_refresh")
 
+	fmt.Println(resp.String())
+
 	if err != nil {
 		return TokenInfo{}, "", err
 	}
 
-	ncksArr := append(cookies, resp.Cookies()...)
+	// 合并cookie
+	for _, item := range cookies {
+		var n = GetCk(resp.Cookies(), item.Name)
+		if n != item.Value && n != "" {
+			item.Value = n
+		}
+	}
 
-	for _, item := range ncksArr {
+	for _, item := range cookies {
 		ncks += fmt.Sprintf("%s=%s;", item.Name, item.Value)
 	}
 

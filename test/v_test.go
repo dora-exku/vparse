@@ -24,7 +24,9 @@ func TestAnalysis(t *testing.T) {
 	}
 
 	var ncksArr = vqq.SplitCks(ncks)
-	url := "https://v.qq.com/x/cover/324olz7ilvo2j5f/t0035aw2v35.html"
+	//url := "https://v.qq.com/x/cover/324olz7ilvo2j5f/t0035aw2v35.html"
+	//url := "https://v.qq.com/x/cover/mzc00200lojsjys/s00446869zn.html"
+	url := "http://m.v.qq.com/x/cover/x/mzc002000ry9s13/p0044gtj3t2.html?&url_from=share&second_share=0&share_from=copy"
 
 	v := vqq.New()
 
@@ -47,6 +49,8 @@ func TestAnalysis(t *testing.T) {
 		ckey := ckeyBody["ckey"]
 		return ckey
 	})
+
+	t.Log(m3url)
 
 	if m3url == "" {
 		t.FailNow()

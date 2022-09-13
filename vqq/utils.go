@@ -38,3 +38,13 @@ func GetCk(cks []*http.Cookie, name string) string {
 	}
 	return ""
 }
+
+func getVid(url string) string {
+
+	hasQuestionMark := strings.Index(url, "?")
+	if hasQuestionMark > 0 {
+		url = url[0:hasQuestionMark]
+	}
+	url = strings.TrimSuffix(url, ".html")
+	return url[strings.LastIndex(url, "/")+1:]
+}

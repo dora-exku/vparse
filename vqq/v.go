@@ -57,9 +57,7 @@ func (v Vqq) Analysis(url string, defn string, ckcall func(vqq Vqq, url, vid, ti
 	var vid string
 	var timeStr = strconv.FormatInt(time.Now().Unix(), 10)
 
-	urlArr := strings.Split(url, "/")
-
-	vid = strings.TrimSuffix(urlArr[6], ".html")
+	vid = getVid(url)
 
 	md5h := md5.New()
 
