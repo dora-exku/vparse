@@ -153,6 +153,7 @@ func (v Vqq) Analysis(url string, defn string, ckcall func(vqq Vqq, url, vid, ti
 	//ndata = data.(items)
 	if len(data.Vl.Vi) == 0 {
 		logger.Debug("返回内容", s, err)
+		logger.Debug("origin URL", resp.Request.URL)
 		return ""
 	}
 
