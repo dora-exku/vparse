@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
+	"github.com/dora-exku/v-analysis/logger"
 	"github.com/go-resty/resty/v2"
 	"math/rand"
 	"net/http"
@@ -150,7 +151,10 @@ func (v Vqq) Analysis(url string, defn string, ckcall func(vqq Vqq, url, vid, ti
 
 	//var ndata items
 	//ndata = data.(items)
-	//fmt.Println(data, err)
+	if len(data.Vl.Vi) == 0 {
+		logger.Debug("返回内容", s, err)
+		return ""
+	}
 
 	for _, item := range data.Vl.Vi[0].Ul.Ui {
 		return item.URL
