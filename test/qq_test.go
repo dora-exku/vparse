@@ -2,6 +2,7 @@ package test
 
 import (
 	"encoding/json"
+	"github.com/dora-exku/v-analysis/utils"
 	"github.com/dora-exku/v-analysis/vqq"
 	"github.com/go-resty/resty/v2"
 	"os"
@@ -23,7 +24,7 @@ func TestQqAnalysis(t *testing.T) {
 		t.FailNow()
 	}
 
-	var ncksArr = vqq.SplitCks(ncks)
+	var ncksArr = utils.SplitCks(ncks)
 	//url := "https://v.qq.com/x/cover/324olz7ilvo2j5f/t0035aw2v35.html"
 	//url := "https://v.qq.com/x/cover/mzc00200lojsjys/s00446869zn.html"
 	url := "http://m.v.qq.com/x/cover/x/mzc002000ry9s13/p0044gtj3t2.html?&url_from=share&second_share=0&share_from=copy"
@@ -50,10 +51,7 @@ func TestQqAnalysis(t *testing.T) {
 		return ckey
 	})
 
-	t.Log(m3url)
-	t.FailNow()
-
-	//if m3url == "" {
-	//	t.FailNow()
-	//}
+	if m3url == "" {
+		t.FailNow()
+	}
 }

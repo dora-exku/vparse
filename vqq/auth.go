@@ -37,9 +37,7 @@ func AuthRefresh(cks string) (tokenInfo TokenInfo, ncks string, err error) {
 		"callback": callBack,
 		"_":        timeM,
 	}).R().Get("https://access.video.qq.com/user/auth_refresh")
-
-	fmt.Println(resp.String())
-
+	
 	if err != nil {
 		return TokenInfo{}, "", err
 	}
