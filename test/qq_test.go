@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestAnalysis(t *testing.T) {
+func TestQqAnalysis(t *testing.T) {
 
 	cks, err := os.ReadFile("../v.ck")
 	if err != nil {
@@ -51,8 +51,9 @@ func TestAnalysis(t *testing.T) {
 	})
 
 	t.Log(m3url)
+	t.FailNow()
 
-	if m3url == "" {
-		t.FailNow()
-	}
+	//if m3url == "" {
+	//	t.FailNow()
+	//}
 }

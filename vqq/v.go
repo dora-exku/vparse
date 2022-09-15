@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"github.com/dora-exku/v-analysis/logger"
+	"github.com/dora-exku/v-analysis/utils"
 	"github.com/go-resty/resty/v2"
 	"math/rand"
 	"net/http"
@@ -36,12 +37,12 @@ func New() *Vqq {
 }
 
 func (v *Vqq) WithCookie(ncks []*http.Cookie) *Vqq {
-	v.AppID = GetCk(ncks, "vqq_appid")
-	v.OpenID = GetCk(ncks, "vqq_openid")
-	v.Guid = GetCk(ncks, "video_guid")
-	v.AccessToken = GetCk(ncks, "vqq_access_token")
-	v.Session = GetCk(ncks, "vqq_vusession")
-	v.UserID = GetCk(ncks, "vqq_vuserid")
+	v.AppID = utils.GetCk(ncks, "vqq_appid")
+	v.OpenID = utils.GetCk(ncks, "vqq_openid")
+	v.Guid = utils.GetCk(ncks, "video_guid")
+	v.AccessToken = utils.GetCk(ncks, "vqq_access_token")
+	v.Session = utils.GetCk(ncks, "vqq_vusession")
+	v.UserID = utils.GetCk(ncks, "vqq_vuserid")
 
 	return v
 }

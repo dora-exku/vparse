@@ -3,6 +3,7 @@ package vqq
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/dora-exku/v-analysis/utils"
 	"github.com/go-resty/resty/v2"
 	"strconv"
 	"time"
@@ -17,7 +18,7 @@ type TokenInfo struct {
 func AuthRefresh(cks string) (tokenInfo TokenInfo, ncks string, err error) {
 	client := resty.New()
 	//var cookies []*http.Cookie
-	cookies := SplitCks(cks)
+	cookies := utils.SplitCks(cks)
 
 	timeM := strconv.FormatInt(time.Now().UnixMilli(), 10)
 
@@ -31,8 +32,8 @@ func AuthRefresh(cks string) (tokenInfo TokenInfo, ncks string, err error) {
 		"vsecret":  "fdf61a6be0aad57132bc5cdf78ac30145b6cd2c1470b0cfe",
 		"type":     "qq",
 		"g_tk":     "",
-		"g_vstk":   time33(GetCk(cookies, "vqq_vusession")),
-		"g_actk":   time33(GetCk(cookies, "vqq_access_token")),
+		"g_vstk":   time33(utils.GetCk(cookies, "vqq_vusession")),
+		"g_actk":   time33(utils.GetCk(cookies, "vqq_access_token")),
 		"callback": callBack,
 		"_":        timeM,
 	}).R().Get("https://access.video.qq.com/user/auth_refresh")
@@ -45,7 +46,7 @@ func AuthRefresh(cks string) (tokenInfo TokenInfo, ncks string, err error) {
 
 	// 合并cookie
 	for _, item := range cookies {
-		var n = GetCk(resp.Cookies(), item.Name)
+		var n = utils.GetCk(resp.Cookies(), item.Name)
 		if n != item.Value && n != "" {
 			item.Value = n
 		}
