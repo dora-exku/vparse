@@ -1,4 +1,4 @@
-module github.com/dora-exku/v-analysis
+module github.com/dora-exku/vparse
 
 go 1.18
 
