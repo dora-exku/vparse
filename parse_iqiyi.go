@@ -156,7 +156,7 @@ func (parse *IqiyiParse) Parse(url, definition string) (m3u8 string, err error) 
 	}
 
 	for _, item := range result.Data.Program.Videos {
-		if strconv.Itoa(item.Bid) == definition {
+		if item.Url != "" {
 			return item.Url, nil
 		}
 	}
