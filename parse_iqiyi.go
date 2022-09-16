@@ -16,17 +16,19 @@ type IqiyiParse struct {
 	callFuncMap map[string]CallFunc
 }
 
-func (parse *IqiyiParse) WithCall(name string, call CallFunc) *IqiyiParse {
+func (parse *IqiyiParse) WithCall(name string, call CallFunc) {
 	if parse.callFuncMap == nil {
 		parse.callFuncMap = make(map[string]CallFunc)
 	}
 	parse.callFuncMap[name] = call
-	return parse
 }
 
-func (parse *IqiyiParse) WithCookies(cookies []*http.Cookie) *IqiyiParse {
+func (parse *IqiyiParse) WithCookies(cookies []*http.Cookie) {
 	parse.Cookies = cookies
-	return parse
+}
+
+func (parse *IqiyiParse) WithUserAgent(ua string) {
+	parse.UA = ua
 }
 
 func (parse *IqiyiParse) Parse(url, definition string) (m3u8 string, err error) {

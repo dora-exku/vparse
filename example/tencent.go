@@ -5,25 +5,23 @@ import (
 	"errors"
 	"fmt"
 	"github.com/dora-exku/vparse"
-	"github.com/dora-exku/vparse/utils"
 	"github.com/go-resty/resty/v2"
 	"os"
 )
 
 func main() {
-	c, err := os.ReadFile("v.ck")
+	c, err := os.ReadFile("cookie_tencent.ck")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	cks := utils.SplitCks(string(c))
+	cks := vparse.SplitCks(string(c))
 
-	v := vparse.TencentParse{
-		UA: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36",
-	}
-	v.WithCookies(cks)
-	v.WithCall("ckey", func(args ...any) (string, error) {
+	video := vparse.New("tencent")
+	video.WithUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36")
+	video.WithCookies(cks)
+	video.WithCall("ckey", func(args ...any) (string, error) {
 		// url vid guid tm
 		if len(args) != 4 {
 			return "", errors.New("ckey params invalid")
@@ -40,7 +38,7 @@ func main() {
 			"referer":  args[0].(string),
 		}).Get("http://localhost:5050/tencent/ckey81")
 
-		var result struct{
+		var result struct {
 			Ckey string `json:"ckey"`
 		}
 		err = json.Unmarshal(ckeyResp.Body(), &result)
@@ -50,7 +48,7 @@ func main() {
 		return result.Ckey, nil
 	})
 
-	m3u8, err := v.Parse(
+	m3u8, err := video.Parse(
 		"https://m.v.qq.com/play.html?vid=k0025c8k9hr&cid=9p15mebx5gn4pz4",
 		"fhd",
 	)

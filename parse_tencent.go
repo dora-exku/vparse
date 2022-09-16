@@ -28,15 +28,15 @@ type TencentParse struct {
 	callFuncMap map[string]CallFunc
 }
 
-func (parse *TencentParse) WithCall(name string, call CallFunc) *TencentParse {
+func (parse *TencentParse) WithCall(name string, call CallFunc) {
 	if parse.callFuncMap == nil {
 		parse.callFuncMap = make(map[string]CallFunc)
 	}
 	parse.callFuncMap[name] = call
-	return parse
+
 }
 
-func (parse *TencentParse) WithCookies(cookies []*http.Cookie) *TencentParse {
+func (parse *TencentParse) WithCookies(cookies []*http.Cookie) {
 	parse.Cookies = cookies
 	parse.appID = GetCk(cookies, "vqq_appid")
 	parse.openID = GetCk(cookies, "vqq_openid")
@@ -45,7 +45,10 @@ func (parse *TencentParse) WithCookies(cookies []*http.Cookie) *TencentParse {
 	parse.session = GetCk(cookies, "vqq_vusession")
 	parse.userID = GetCk(cookies, "vqq_vuserid")
 	parse.mainLogin = GetCk(cookies, "main_login")
-	return parse
+}
+
+func (parse *TencentParse) WithUserAgent(ua string) {
+	parse.UA = ua
 }
 
 func (parse *TencentParse) Parse(url, definition string) (m3u8 string, err error) {
