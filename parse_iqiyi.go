@@ -161,7 +161,7 @@ func (parse *IqiyiParse) Parse(url, definition string) (m3u8 string, err error) 
 		}
 	}
 
-	return "", nil
+	return "", errors.New(body)
 }
 
 func (parse IqiyiParse) getVid(url string) (tvid, vid string, bid int, err error) {
