@@ -3,21 +3,23 @@ package iqiyi
 import (
 	"encoding/json"
 	"github.com/go-resty/resty/v2"
+	"net/http"
 	"strconv"
 	"strings"
 )
 
-func GetVid(url string) (tvid, vid string, bid int) {
+func GetVid(url string, cks []*http.Cookie) (tvid, vid string, bid int) {
 	client := resty.New()
 
 	resp, err := client.SetHeaders(map[string]string{
 		"referer":    "https://www.iqiyi.com/",
 		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36",
-	}).R().Get(url)
+	}).SetCookies(cks).R().Get(url)
 
 	if err != nil {
 		return "", "", 0
 	}
+
 
 	data := resp.String()
 

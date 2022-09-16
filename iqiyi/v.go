@@ -27,7 +27,7 @@ func (v *Viqiyi) WithCookie(cookie []*http.Cookie) *Viqiyi {
 
 func (v Viqiyi) Analysis(url, bid string, authKeyCall func(tm, vid string) string, vfCall func(url string) string) string {
 
-	rtvid, rvid, rbid := GetVid(url)
+	rtvid, rvid, rbid := GetVid(url, v.Cookies)
 
 	if rtvid == "" {
 		return ""
