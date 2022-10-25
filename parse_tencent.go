@@ -28,7 +28,7 @@ type TencentParse struct {
 	callFuncMap map[string]CallFunc
 }
 
-func (parse *TencentParse) WithCall(name string, call CallFunc) {
+func (parse *TencentParse) SetCall(name string, call CallFunc) {
 	if parse.callFuncMap == nil {
 		parse.callFuncMap = make(map[string]CallFunc)
 	}
@@ -36,7 +36,7 @@ func (parse *TencentParse) WithCall(name string, call CallFunc) {
 
 }
 
-func (parse *TencentParse) WithCookies(cookies []*http.Cookie) {
+func (parse *TencentParse) SetCookies(cookies []*http.Cookie) {
 	parse.Cookies = cookies
 	parse.appID = GetCk(cookies, "vqq_appid")
 	parse.openID = GetCk(cookies, "vqq_openid")
@@ -47,7 +47,7 @@ func (parse *TencentParse) WithCookies(cookies []*http.Cookie) {
 	parse.mainLogin = GetCk(cookies, "main_login")
 }
 
-func (parse *TencentParse) WithUserAgent(ua string) {
+func (parse *TencentParse) SetUserAgent(ua string) {
 	parse.UA = ua
 }
 
@@ -83,7 +83,7 @@ func (parse *TencentParse) Parse(url, definition string) (m3u8 string, err error
 	if err != nil {
 		return "", err
 	}
-
+	
 	client = resty.New()
 
 	loginaccess, _ := json.Marshal(map[string]string{
@@ -153,10 +153,11 @@ func (parse *TencentParse) Parse(url, definition string) (m3u8 string, err error
 		} `json:"vl"`
 	}
 
+
+
 	var s = strings.TrimPrefix(resp.String(), call+"(")
 	s = strings.TrimSuffix(s, ")")
 
-	//fmt.Println(s)
 
 	err = json.Unmarshal([]byte(s), &data)
 	if err != nil {
@@ -213,6 +214,7 @@ func (parse *TencentParse) authRefresh() error {
 		Session     string `json:"vusession"`
 		AccessToken string `json:"access_token"`
 	}
+
 
 	err = json.Unmarshal([]byte(data), &result)
 	if err != nil {

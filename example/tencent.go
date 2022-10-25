@@ -19,9 +19,9 @@ func main() {
 	cks := vparse.SplitCks(string(c))
 
 	video := vparse.New("tencent")
-	video.WithUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36")
-	video.WithCookies(cks)
-	video.WithCall("ckey", func(args ...any) (string, error) {
+	video.SetUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36")
+	video.SetCookies(cks)
+	video.SetCall("ckey", func(args ...any) (string, error) {
 		// url vid guid tm
 		if len(args) != 4 {
 			return "", errors.New("ckey params invalid")
@@ -49,7 +49,7 @@ func main() {
 	})
 
 	m3u8, err := video.Parse(
-		"https://m.v.qq.com/play.html?vid=k0025c8k9hr&cid=9p15mebx5gn4pz4",
+		"https://v.qq.com/x/cover/mzc002000xg1sad/t0044iedn5j.html",
 		"fhd",
 	)
 	fmt.Println(m3u8, err)

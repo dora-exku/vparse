@@ -20,9 +20,9 @@ func main() {
 
 	video := vparse.New("iqiyi")
 
-	video.WithUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1")
-	video.WithCookies(cks)
-	video.WithCall("authkey", func(args ...any) (string, error) {
+	video.SetUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1")
+	video.SetCookies(cks)
+	video.SetCall("authkey", func(args ...any) (string, error) {
 		if len(args) != 2 {
 			return "", errors.New("params invalid")
 		}
@@ -40,7 +40,7 @@ func main() {
 		return string(k[12 : len(k)-2]), nil
 	})
 
-	video.WithCall("vf", func(args ...any) (string, error) {
+	video.SetCall("vf", func(args ...any) (string, error) {
 		if len(args) != 1 {
 			return "", errors.New("params invalid")
 		}
@@ -57,8 +57,9 @@ func main() {
 	})
 
 	m3u8, err := video.Parse(
+		//"https://www.iqiyi.com/v_19rrlzcmcg.html",
 		"https://www.iqiyi.com/v_19rrlzcmcg.html",
-		"",
+		"500",
 	)
 
 	fmt.Println(m3u8, err)

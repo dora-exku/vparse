@@ -16,18 +16,18 @@ type IqiyiParse struct {
 	callFuncMap map[string]CallFunc
 }
 
-func (parse *IqiyiParse) WithCall(name string, call CallFunc) {
+func (parse *IqiyiParse) SetCall(name string, call CallFunc) {
 	if parse.callFuncMap == nil {
 		parse.callFuncMap = make(map[string]CallFunc)
 	}
 	parse.callFuncMap[name] = call
 }
 
-func (parse *IqiyiParse) WithCookies(cookies []*http.Cookie) {
+func (parse *IqiyiParse) SetCookies(cookies []*http.Cookie) {
 	parse.Cookies = cookies
 }
 
-func (parse *IqiyiParse) WithUserAgent(ua string) {
+func (parse *IqiyiParse) SetUserAgent(ua string) {
 	parse.UA = ua
 }
 
